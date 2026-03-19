@@ -1,6 +1,6 @@
 import { Canvas, useFrame, useLoader } from "@react-three/fiber";
 
-import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
+
 
 import { PerspectiveCamera, Environment } from "@react-three/drei";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
@@ -19,39 +19,11 @@ type Scene3DProps = {
 // ─────────────────────────────────────────────
 // Helpers
 // ─────────────────────────────────────────────
-function setMeshProps(obj: any) {
-  if (!obj?.isMesh) return false;
-  obj.castShadow = false;
-  obj.receiveShadow = true;
-  return true;
-}
 
-function tuneMaterial(mat: any) {
-  if (!mat) return;
-  if ("roughness" in mat && typeof mat.roughness === "number") {
-    mat.roughness = Math.max(mat.roughness, 0.3);
-  }
-  if ("metalness" in mat && typeof mat.metalness === "number") {
-    mat.metalness = Math.min(mat.metalness, 0.8);
-  }
-  mat.needsUpdate = true;
-}
 
-function cloneAndTuneMaterial(material: any) {
-  if (!material) return material;
 
-  if (Array.isArray(material)) {
-    return material.map((m) => {
-      const cloned = m?.clone ? m.clone() : m;
-      tuneMaterial(cloned);
-      return cloned;
-    });
-  }
 
-  const cloned = material?.clone ? material.clone() : material;
-  tuneMaterial(cloned);
-  return cloned;
-}
+
 
 function setupColorTexture(tex: THREE.Texture) {
   tex.colorSpace = THREE.SRGBColorSpace;
